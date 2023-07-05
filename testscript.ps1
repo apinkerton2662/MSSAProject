@@ -52,7 +52,7 @@ foreach ($server in $servers) {
   }
 }
 
-# Add the remaining switches to the appropriate routers
+# Add network adapters to routers and connect to switches
 foreach ($server in $servers) {
   if($server -eq "KEMP-RTR1") {
     $seaSwitches = "SEAtoINET","SEAtoDAL","SEAtoCAP"
