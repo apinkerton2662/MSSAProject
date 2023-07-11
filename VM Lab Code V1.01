@@ -1,0 +1,43 @@
+#Step 1 - set the environment
+mkdir "C:\Users\Public\Documents\Hyper-V\VHD\"
+mkdir "C:\Users\Public\Documents\Hyper-V\VM\"
+
+$vhdParentImagePath = "C:\Program Files\Microsoft Learning\Base\Base22A-WS22-2348.vhd"
+$vhdStoragePath = "C:\Users\Public\Documents\Hyper-V\VHD\"
+$vmStoragePath = "C:\Users\Public\Documents\Hyper-V\VM\"
+
+[system.collections.arraylist]$serverNameArray = @("EastCoast-CL1", "WestCoast-CL1", "GateWay-RTR1")
+[System.collections.arraylist]$adapterArray = @(EC-SW1, WC-SW1, GW-SW1)
+[Systems.Colelctions.ArrayList]$vhdNameList = foreach($server in $serverNameArray){
+$vhdNameList + ($server + ".vhd")
+}
+
+foreach($vhd in $vhdNameList) {
+	New-VHD -ParentPath $vhdParentImagePath -path ($vhdStoragePath+$vhd)
+}
+
+foreach($adapter in $adapterArray) {
+	New-VMSwitch -Name $adapter -SwitchType private
+
+#Step 2 - create the VM's
+	
+foreach ($server in $serverNameArray) {
+ #save matching VHD into variable to call in vhdPath
+ $vhdForVM = $vhdnameList | where-object {$_. -like $server}
+ $VM = @{
+	  Name = $server
+	  MemoryStartupBytes = 2147483648
+	  Generation = 1
+	  BootDevice = "VHD"
+	  VHDPath = $vhdStoragePath + $vhdForVm[0]
+	  Path = $vmStoragePath
+	  }
+	  New-VM @VM
+	  }
+
+#create an array of all "childpath" items of the VMs in the $vmStoragePath for reference in the next loops
+#vmArray = @(Get-ChildItem -path $vmStoragePath) 
+
+foreach ($vm in $vmArray) {
+	if($vm -like "EastCoast-CL1) {
+		New-VMSwitch -Name ($adapterArray
