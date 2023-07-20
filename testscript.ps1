@@ -1,15 +1,20 @@
 <# This script creates virtual machines and configures network adapters #>
 # Set VHD Path
-$vhdPath = "C:\Users\Public\Documents\Hyper-V\Virtual Hard Disks"
+New-Item -Path C:\Users\Public\Documents\ -name "Hyper-V" -ItemType Directory
+New-Item -Path C:\Users\Public\Documents\Hyper-V\ -Name "Virtual Hard Disks" -ItemType Directory
+$vhdPath = "C:\Users\Public\Documents\Hyper-V\Virtual Hard Disks\"
+
+# Set VM Path
+$vmPath = "C:\Users\Public\Documments\Hyper-V\"
 
 # Set Parent Path
-$vhdParentPath = "C:\Program Files\Microsoft Learning\Base\Base22A-WS22-2348.vhd"
+# Not Required $vhdParentPath = ****
 
 # Create list of desired computer names
-$servers = "KEMP-RTR1","KEMP-DC1","DURANT-RTR1","DURANT-DC1","PAYTON-RTR1","PAYTON-DC1"
+$servers = "HQ-RTR1","HQ-DC1"
 
 # Create a list of desired switch names
-$switches = "SeattleSwitch","CapitalSwitch","DallasSwitch","SEAtoDAL","SEAtoCAP","SEAtoINET"
+$switches = "HQtoATL","HQDCSwitch","HQUserSwitch"
 
 # Use $serverList to create VHD names
 $vhds = foreach ($server in $servers) {
