@@ -60,9 +60,12 @@ $paramValues = @{
 
 $paramObject = New-Object PSObject -property $paramValues
 
-$csvFilePath = "C:\Program Files\Git Repositories\MSSAProject\powershellFinalLabProject.ps1"
+$csvFilePath = "C:\Program Files\Git Repositories\MSSAProject\powershellFinalProject"
 
 $paramObject | Export-Csv -Path $csvFilePath -append -NoTypeInformation
+
+
+
 
 
 
